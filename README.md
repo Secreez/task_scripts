@@ -11,8 +11,9 @@ The scripts are organised by programming language. Currently, the following lang
 |-- 📂 go
 |
 |-- 📂 python
-|   |-- 📂 brokenlinks
-|       |-- broken_links.py
+|   |-- 📂 broken_links_qmd
+|   |-- 📂 broken_links_rmd
+|   |-- 📂 check_unused_images
 |
 |-- 📂 R
 |   |-- 📂 package_checker
@@ -20,22 +21,6 @@ The scripts are organised by programming language. Currently, the following lang
 |
 |-- 📜 README.md
 ```
-
-## Contents
-
-### Python
-
-- **broken_links**:
-  - A Python script that checks all the links in the RMD files within your project directory and its subdirectories, and generates a log file with the status of each link.
-
-### R
-
-- **package_checker**:
-  - An R script that identifies used packages in Bookdown projects. Stay organized and ensure you're utilizing the right tools.
-
-### Go
-
-- ... (coming soon)
 
 ## How to Use
 
