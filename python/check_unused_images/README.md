@@ -14,8 +14,7 @@ project_root/
 │   ├── image2.jpg
 │   └── ...
 │
-├── scripts/unused_images/      # Folder containing the script
-│   └── check_unused_images.py  # The Python script
+├── check_unused_images.py      # The Python script
 │
 ├── file1.Rmd                   # .Rmd or .qmd files in the root
 ├── file2.qmd
@@ -25,14 +24,13 @@ project_root/
 
 ## How to Use
 
-1. **Navigate to the `scripts/unused_images/` Folder:** Open a terminal and move to the script's directory:
+1. **Navigate to the project root:** Open a terminal and move to the project's root directory:
 
 ```
-cd project_root/scripts/unused_images
+cd project_root
 ```
 
 2. **Run the Script:** Execute the script using Python:
-
 
 ```
 py check_unused_images.py

@@ -2,7 +2,7 @@ import os
 import re
 from datetime import datetime
 
-project_folder = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
+project_folder = os.path.abspath(os.path.dirname(__file__))
 images_folder = os.path.join(project_folder, "images")
 log_file_path = os.path.join(project_folder, "unused_images.log")
 
