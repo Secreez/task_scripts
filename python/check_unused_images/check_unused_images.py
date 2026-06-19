@@ -42,8 +42,12 @@ def get_referenced_images(files, file_extension):
 
 def get_existing_images(images_folder):
     """Get all image filenames in the images folder."""
+    # Case-insensitive extension check, so files like 'performance.PNG' are
+    # picked up too (str.endswith() is case-sensitive by default).
     existing_images = {
-        img for img in os.listdir(images_folder) if img.endswith(image_extensions)
+        img
+        for img in os.listdir(images_folder)
+        if img.lower().endswith(image_extensions)
     }
     print("\nExisting images in folder:")
     print(
@@ -53,7 +57,13 @@ def get_existing_images(images_folder):
 
 
 def detect_file_types():
-    """Detect all .Rmd and .qmd files in the project."""
+    """Detect all .Rmd and .qmd files in the project.
+
+    Intentionally only scans the top level of project_folder (no recursion
+    into subfolders). This is by design: it avoids picking up stray .qmd
+    files that got copy-pasted in from older versions/branches and would
+    otherwise pollute the "referenced images" set.
+    """
     rmd_files = [
         os.path.join(project_folder, f)
         for f in os.listdir(project_folder)
@@ -97,7 +107,17 @@ def main():
         f"  Found {len(referenced_images)} referenced images: {', '.join(list(referenced_images)[:10])}..."
     )
 
-    unused_images = sorted(existing_images - referenced_images)
+    # Case-insensitive comparison: build a lookup from lowercased filename
+    # back to the original filename, so 'Performance.PNG' referenced as
+    # 'performance.png' in a .qmd still matches correctly.
+    existing_by_lower = {img.lower(): img for img in existing_images}
+    referenced_lower = {img.lower() for img in referenced_images}
+
+    unused_images = sorted(
+        existing_by_lower[lower_name]
+        for lower_name in existing_by_lower
+        if lower_name not in referenced_lower
+    )
     total_images = len(existing_images)
 
     with open(log_file_path, "w", encoding="utf-8") as log_file:
